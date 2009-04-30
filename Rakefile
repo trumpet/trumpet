@@ -5,10 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "trumpet"
-    gem.summary = %Q{TODO}
-    gem.email = "michaeltaras@gmail.com"
-    gem.homepage = "http://github.com/michaeltaras/trumpet"
+    gem.summary = "The official trumpet gem"
+    gem.email = "wtf@trumpet.io"
+    gem.homepage = "http://github.com/trumpet/trumpet"
     gem.authors = ["Michael Taras"]
+    gem.add_dependency 'resourceful'
+    gem.add_dependency 'json'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

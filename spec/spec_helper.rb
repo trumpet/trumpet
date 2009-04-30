@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'fakeweb'
 require 'spec'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
