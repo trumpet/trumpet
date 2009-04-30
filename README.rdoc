@@ -1,0 +1,7 @@
+= trumpet
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Michael Taras. See LICENSE for details.
