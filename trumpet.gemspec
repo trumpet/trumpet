@@ -29,8 +29,8 @@ Gem::Specification.new do |s|
     "lib/trumpet/transmitter.rb",
     "lib/trumpet/trumpet_resource.rb",
     "lib/trumpet/user.rb",
-    "spec/spec_helper.rb",
-    "spec/trumpet_spec.rb"
+    "spec/channel_spec.rb",
+    "spec/spec_helper.rb"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/trumpet/trumpet}
@@ -39,8 +39,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{The official trumpet gem}
   s.test_files = [
-    "spec/spec_helper.rb",
-    "spec/trumpet_spec.rb"
+    "spec/channel_spec.rb",
+    "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
