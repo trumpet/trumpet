@@ -135,19 +135,4 @@ class Hash #:nodoc:
 
     param
   end
-  
-  # @return <String> The hash as attributes for an XML tag.
-  #
-  # @example
-  #   { :one => 1, "two"=>"TWO" }.to_xml_attributes
-  #     #=> 'one="1" two="TWO"'
-  def to_xml_attributes
-    map do |k,v|
-      %{#{k.to_s.snake_case.sub(/^(.{1,1})/) { |m| m.downcase }}="#{v}"}
-    end.join(' ')
-  end
-end
-
-class BlankSlate #:nodoc:
-  instance_methods.each { |m| undef_method m unless m =~ /^__/ }
 end

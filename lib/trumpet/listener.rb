@@ -14,15 +14,15 @@ module Trumpet
     
     
     def self.create(options)
-      Listener.new(HTTP.post('/listeners', :parameters => options))
+      Listener.new(Trumpet::Request.post('/listeners', :parameters => options))
     end
     
     def self.find(id)
-      Listener.new(HTTP.get("/listeners/#{id}"))
+      Listener.new(Trumpet::Request.get("/listeners/#{id}"))
     end
     
     def self.delete
-      HTTP.delete("/listeners/#{@id}")
+      !!Trumpet::Request.delete("/listeners/#{@id}")
     end
     
     

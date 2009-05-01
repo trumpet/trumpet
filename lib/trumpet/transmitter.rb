@@ -17,27 +17,33 @@ module Trumpet
     attr_reader *@@attributes
     
     def self.create(options)
-      attributes = HTTP::post('transmitters', :query => options)
-      Transmitter.new(attributes)
+      Transmitter.new(Trumpet::Request.post('transmitters', :parameters => options))
     end
     
     def self.find(id)
-      attributes = get("/transmitters/#{id}")
-      Transmitter.new(attributes)
+      Transmitter.new(Trumpet::Request.get("/transmitters/#{id}"))
     end
     
     def delete
-      self.class.delete('/')
+      Trumpet::Request.delete("/transmitters/#{@id}")
     end
     
     def listeners
-      listeners = self.class.get("/transmitters/#{id}/listeners")
+      listeners = Trumpet::Request.get("/transmitters/#{@id}/listeners")
       listeners.map { |attributes| Listener.new(attributes) }
     end
     
     def broadcast(message)
-      self.class.post("/transmitters/#{@transmitter_id}/messages", :query => message.to_h)
+      Trumpet::Request.post("/transmitters/#{@transmitter_id}/messages", :parameters => message.to_h)
     end
-
+    
+    
+    protected
+    
+      def initialize(attributes)
+        @@attributes.each do |attr|
+          self.instance_variable_set(:"@#{attr.to_s}", attributes[attr.to_s]) if attributes[attr.to_s]
+        end
+      end
   end
 end

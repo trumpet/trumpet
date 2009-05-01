@@ -19,19 +19,19 @@ module Trumpet
     
     
     def self.create(options={})
-      Receiver.new(HTTP.post("/receivers", :parameters => options))
+      Receiver.new(Trumpet::Request.post("/receivers", :parameters => options))
     end
     
     def self.find(id)
-      Receiver.new(HTTP.get("/receivers/#{id}"))
+      Receiver.new(Trumpet::Request.get("/receivers/#{id}"))
     end
 
     def delete
-      HTTP.delete("/receivers/#{@id}")
+      !!Trumpet::Request.delete("/receivers/#{@id}")
     end
     
     def messages
-      messages = HTTP.get("/receivers/#{@id}/messages")
+      messages = Trumpet::Request.get("/receivers/#{@id}/messages")
       messages.map { |attributes| Message.new(attributes) }
     end
     

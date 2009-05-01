@@ -9,23 +9,23 @@ module Trumpet
     attr_reader *@@attributes
     
     def self.create(options)
-      Channel.new(HTTP.post('/channels', :parameters => options))
+      Channel.new(Trumpet::Request.post('/channels', :parameters => options))
     end
     
     def self.find(name)
-      Channel.new(HTTP.post("/channels/#{name}"))
+      Channel.new(Trumpet::Request.post("/channels/#{name}"))
     end
     
     def self.all
-      HTTP::get('/channels').map { |attributes| Channel.new(attributes) }
+      Trumpet::Request.get('/channels').map { |attributes| Channel.new(attributes) }
     end
         
     def broadcast(message)
-      Message.new(HTTP.post("/channels/#{@name}/messages", :parameters => message.to_h))
+      Message.new(Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h))
     end
     
     def messages
-      messages = HTTP.get("/channels/#{@name}/messages")
+      messages = Trumpet::Request.get("/channels/#{@name}/messages")
       messages.map { |attributes| Message.new(attributes) }
     end
 
