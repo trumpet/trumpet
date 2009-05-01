@@ -16,6 +16,26 @@ module Trumpet
       !!Trumpet::Request.delete("/users/#{@name}")
     end
     
+    def channels
+      channels = Trumpet::Request.get("/users/#{@name}/channels")
+      channels.map { |attributes| Trumpet::Channel.new(attributes) }
+    end
+    
+    def listeners
+      listeners = Trumpet::Request.get("/users/#{@name}/listeners")
+      listeners.map { |attributes| Trumpet::Channel.new(attributes) }
+    end
+    
+    def receivers
+      receivers = Trumpet::Request.get("/users/#{@name}/receivers")
+      receivers.map { |attributes| Trumpet::Channel.new(attributes) }
+    end
+    
+    def transmitters
+      transmitters = Trumpet::Request.get("/users/#{@name}/transmitters")
+      transmitters.map { |attributes| Trumpet::Transmitter.new(attributes) }
+    end
+    
     protected
     
       def initialize(attributes)

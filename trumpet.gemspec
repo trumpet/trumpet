@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Taras"]
-  s.date = %q{2009-04-30}
+  s.date = %q{2009-05-01}
   s.email = %q{wtf@trumpet.io}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -18,14 +18,14 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION.yml",
     "lib/core_extensions.rb",
-    "lib/http.rb",
     "lib/trumpet.rb",
     "lib/trumpet/channel.rb",
     "lib/trumpet/exceptions.rb",
+    "lib/trumpet/helpers.rb",
     "lib/trumpet/listener.rb",
     "lib/trumpet/message.rb",
     "lib/trumpet/receiver.rb",
-    "lib/trumpet/sieve.rb",
+    "lib/trumpet/request.rb",
     "lib/trumpet/transmitter.rb",
     "lib/trumpet/trumpet_resource.rb",
     "lib/trumpet/user.rb",

@@ -30,6 +30,10 @@ module Trumpet
       !!Trumpet::Request.delete("/receivers/#{@id}")
     end
     
+    def listeners
+      Trumpet::Listener.all_by_receiver_id(@id)
+    end
+    
     def messages
       messages = Trumpet::Request.get("/receivers/#{@id}/messages")
       messages.map { |attributes| Message.new(attributes) }

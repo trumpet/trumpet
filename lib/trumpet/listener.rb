@@ -25,6 +25,11 @@ module Trumpet
       !!Trumpet::Request.delete("/listeners/#{@id}")
     end
     
+    def self.all_by_receiver_id(receiver_id)
+      listeners = Trumpet::Request.get("/receivers/#{receiver_id}/listeners")
+      listeners.map { |attributes| Listener.new(attributes) }
+    end
+    
     
     protected
     
