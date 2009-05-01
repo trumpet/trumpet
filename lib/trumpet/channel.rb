@@ -13,7 +13,7 @@ module Trumpet
     end
     
     def self.find(name)
-      Channel.new(Trumpet::Request.post("/channels/#{name}"))
+      Channel.new(Trumpet::Request.get("/channels/#{name}"))
     end
     
     def self.all
