@@ -19,8 +19,11 @@ module Trumpet
     attr_accessor *@@attributes
 
     def initialize(attributes)
+      
+
+      
       @@attributes.each do |attr|
-        self.send "#{attr.to_s}=".to_sym, attributes[attr.to_s]
+        self.send "#{attr.to_s}=".to_sym, (attributes[attr] || attributes[attr.to_s])
       end
     end
     

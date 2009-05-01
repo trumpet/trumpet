@@ -21,6 +21,7 @@ module Trumpet
 end
 
 require 'trumpet/trumpet_resource'
+require 'trumpet/exceptions'
 require 'trumpet/message'
 require 'trumpet/receiver'
 require 'trumpet/listener'
