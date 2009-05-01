@@ -2,7 +2,7 @@ module Trumpet
   module Request
     @@http = Resourceful::HttpAccessor.new
     @@uri = 'http://api.trumpet.io:3000'
-    @@uri = 'http://localhost:3000'
+    # @@uri = 'http://localhost:3000'
   
     def self.authenticate(username, password)
       my_realm_authenticator = Resourceful::BasicAuthenticator.new('Trumpet', username, password)    
