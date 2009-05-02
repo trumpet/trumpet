@@ -21,7 +21,7 @@ module Trumpet
     end
         
     def broadcast(message)
-      Message.new(Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h))
+     Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h, :parse_response => false)
     end
     
     def messages
