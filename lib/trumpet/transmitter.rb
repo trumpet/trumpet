@@ -34,7 +34,7 @@ module Trumpet
     end
     
     def broadcast(message)
-      Trumpet::Request.post("/transmitters/#{@transmitter_id}/messages", :parameters => message.to_h)
+      Trumpet::Request.post("/transmitters/#{@transmitter_id}/messages", :parameters => message.to_h, :parse_response => false)
     end
     
     

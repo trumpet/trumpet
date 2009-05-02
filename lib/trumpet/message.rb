@@ -37,10 +37,7 @@ module Trumpet
       puts "And plain to h: #{to_h}"
       
       unless @id
-        attributes = Trumpet::Request.post('/messages', :parameters => self.to_h)
-        @@attributes.each do |attr|
-          self.send "#{attr.to_s}=".to_sym, (attributes[attr] || attributes[attr.to_s])
-        end
+        Trumpet::Request.post('/messages', :parameters => self.to_h, :parse_response => false)
       end
     end
     
