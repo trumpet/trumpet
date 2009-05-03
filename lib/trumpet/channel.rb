@@ -2,6 +2,8 @@ module Trumpet
   class Channel
     @@attributes = [
       :name,
+      :receiver_id,
+      :transmitter_id,
       :created_at,
       :updated_at
     ]

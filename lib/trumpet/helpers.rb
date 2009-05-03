@@ -1,5 +1,10 @@
 module Trumpet
-  def self.authenticate_with(username, password)
+  def self.authenticate(username, password)
     Trumpet::Request.authenticate(username, password)
+    true
+  end
+  
+  def self.set_server(uri)
+    Trumpet::Request.set_server(uri)
   end
 end

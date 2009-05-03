@@ -2,7 +2,6 @@ module Trumpet
   module Request
     @@http = Resourceful::HttpAccessor.new
     @@uri = 'http://api.trumpet.io:3000'
-    # @@uri = 'http://localhost:3000'
   
     def self.authenticate(username, password)
       my_realm_authenticator = Resourceful::BasicAuthenticator.new('Trumpet', username, password)    
@@ -23,6 +22,10 @@ module Trumpet
 
     def self.delete(path, options={})
       do_request(:delete, path, options) 
+    end
+    
+    def self.set_server(uri)
+      @@uri = uri
     end
 
     private
