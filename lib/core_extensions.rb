@@ -99,7 +99,8 @@ class Hash #:nodoc:
   #     }
   #   }.to_params
   #     #=> "name=Bob&address[city]=Ruby Central&address[phones][]=111-111-1111&address[phones][]=222-222-2222&address[street]=111 Ruby Ave."
-  def to_params
+  def to_params(remove_blanks=true)
+    self.reject! { |k,v| v.blank? } if remove_blanks
     params = self.map { |k,v| normalize_param(k,v) }.join
     params.chop! # trailing &
     params

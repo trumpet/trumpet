@@ -4,7 +4,7 @@ module Trumpet
     
     @@attributes = [
       :id         , :url,
-      :source_url , :creator_id       ,
+      :source_url , :created_by_id    ,
       :author     , :author_name      ,
       :avatar_url , :authored_at      ,
       :title      , :description      ,

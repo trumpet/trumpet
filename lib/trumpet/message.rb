@@ -1,7 +1,7 @@
 module Trumpet
   class Message
     @@attributes = [
-      :url        , :creator_id,
+      :url        , :created_by_id,
       :author     , :author_name,
       :avatar_url , :authored_at,
       :title      , :description,
@@ -32,10 +32,6 @@ module Trumpet
     
     # Post a message to the server, but only if it didn't come from the server
     def broadcast
-      
-      puts "Self to h: #{self.to_h}"
-      puts "And plain to h: #{to_h}"
-      
       unless @id
         Trumpet::Request.post('/messages', :parameters => self.to_h, :parse_response => false)
       end
