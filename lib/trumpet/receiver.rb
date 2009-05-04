@@ -25,6 +25,11 @@ module Trumpet
     def self.find(id)
       Receiver.new(Trumpet::Request.get("/receivers/#{id}"))
     end
+    
+    def self.all_by_user(name)
+      receivers = Trumpet::Request.get("/users/#{name}/receivers")
+      receivers.map { |attributes| Trumpet::Receiver.new(attributes) }
+    end
 
     def delete
       !!Trumpet::Request.delete("/receivers/#{@id}")

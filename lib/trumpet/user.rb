@@ -1,6 +1,6 @@
 module Trumpet
   class User
-    @@attributes = [:name]
+    @@attributes = [:id, :name]
     attr_reader *@@attributes
     
     def self.create(options)
@@ -12,28 +12,28 @@ module Trumpet
       User.new(Trumpet::Request.get("/users/#{name}"))
     end
     
+    def self.authenticate(name, password)
+      # TODO: write this method
+    end
+    
     def delete
       !!Trumpet::Request.delete("/users/#{@name}")
     end
     
     def channels
-      channels = Trumpet::Request.get("/users/#{@name}/channels")
-      channels.map { |attributes| Trumpet::Channel.new(attributes) }
+      Trumpet::Channel.all_by_user(@name)
     end
     
     def listeners
-      listeners = Trumpet::Request.get("/users/#{@name}/listeners")
-      listeners.map { |attributes| Trumpet::Channel.new(attributes) }
+      Trumpet::Listener.all_by_user(@name)
     end
     
     def receivers
-      receivers = Trumpet::Request.get("/users/#{@name}/receivers")
-      receivers.map { |attributes| Trumpet::Channel.new(attributes) }
+      Trumpet::Receiver.all_by_user(@name)
     end
     
     def transmitters
-      transmitters = Trumpet::Request.get("/users/#{@name}/transmitters")
-      transmitters.map { |attributes| Trumpet::Transmitter.new(attributes) }
+      Trumpet::Transmitter.all_by_user(@name)
     end
     
     protected

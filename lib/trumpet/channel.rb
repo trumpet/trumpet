@@ -21,6 +21,11 @@ module Trumpet
     def self.all
       Trumpet::Request.get('/channels').map { |attributes| Channel.new(attributes) }
     end
+    
+    def self.all_by_user(name)
+      channels = Trumpet::Request.get("/users/#{name}/channels")
+      channels.map { |attributes| Trumpet::Channel.new(attributes) }
+    end
         
     def broadcast(message)
      Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h, :parse_response => false)

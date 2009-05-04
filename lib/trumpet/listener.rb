@@ -25,6 +25,11 @@ module Trumpet
       Listener.new(Trumpet::Request.get("/listeners/#{id}"))
     end
     
+    def self.all_by_user(name)
+      listeners = Trumpet::Request.get("/users/#{name}/listeners")
+      listeners.map { |attributes| Trumpet::Channel.new(attributes) }
+    end
+    
     def self.delete
       !!Trumpet::Request.delete("/listeners/#{@id}")
     end
