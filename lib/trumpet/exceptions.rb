@@ -12,6 +12,9 @@ module Trumpet
   # HTTP 400 Error
   class BadRequest < StandardError; end
   
+  # HTTP 401 Error
+  class Unauthorized < StandardError; end
+  
   # HTTP 403 Error
   class Forbidden < StandardError; end
   

@@ -4,7 +4,7 @@ module Trumpet
     
     @@attributes = [
       :id         , :url,
-      :source_url , :created_by_id    ,
+      :source_url , :owner_id         ,
       :author     , :author_name      ,
       :avatar_url , :authored_at      ,
       :title      , :description      ,
@@ -28,7 +28,7 @@ module Trumpet
     
     def self.all_by_user(name)
       receivers = Trumpet::Request.get("/users/#{name}/receivers")
-      receivers.map { |attributes| Trumpet::Receiver.new(attributes) }
+      receivers.map { |attributes| Receiver.new(attributes) }
     end
 
     def delete

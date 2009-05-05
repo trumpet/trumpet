@@ -4,6 +4,7 @@ module Trumpet
       :name,
       :receiver_id,
       :transmitter_id,
+      :owner_id,
       :created_at,
       :updated_at
     ]
@@ -24,7 +25,7 @@ module Trumpet
     
     def self.all_by_user(name)
       channels = Trumpet::Request.get("/users/#{name}/channels")
-      channels.map { |attributes| Trumpet::Channel.new(attributes) }
+      channels.map { |attributes| Channel.new(attributes) }
     end
         
     def broadcast(message)

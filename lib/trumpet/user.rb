@@ -12,10 +12,6 @@ module Trumpet
       User.new(Trumpet::Request.get("/users/#{name}"))
     end
     
-    def self.authenticate(name, password)
-      # TODO: write this method
-    end
-    
     def delete
       !!Trumpet::Request.delete("/users/#{@name}")
     end
@@ -31,10 +27,7 @@ module Trumpet
     def receivers
       Trumpet::Receiver.all_by_user(@name)
     end
-    
-    def transmitters
-      Trumpet::Transmitter.all_by_user(@name)
-    end
+
     
     protected
     

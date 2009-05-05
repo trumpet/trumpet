@@ -2,6 +2,7 @@ module Trumpet
   class Listener
     @@attributes = [
       :receiver_id,
+      :owner_id,
       :uri,
       :schedule,
       :created_at,
@@ -13,11 +14,9 @@ module Trumpet
     
     def self.create(options)
       if options[:receiver_id]
-        attributes = Trumpet::Request.post("/receivers/#{options[:receiver_id]}/listeners", :parameters => options)
-        Listener.new(attributes)
-        # Listener.new(Trumpet::Request.post("/receivers/#{options[:receiver_id]}/listeners", :parameters => options))
+        Listener.new(Trumpet::Request.post("/receivers/#{options[:receiver_id]}/listeners", :parameters => options))
       else
-        throw Trumpet::BadRequest "Must specify a receiver id when creating a listener"
+        raise Trumpet::BadRequest, "Must specify a receiver id when creating a listener"
       end
     end
     
@@ -27,7 +26,7 @@ module Trumpet
     
     def self.all_by_user(name)
       listeners = Trumpet::Request.get("/users/#{name}/listeners")
-      listeners.map { |attributes| Trumpet::Channel.new(attributes) }
+      listeners.map { |attributes| Listener.new(attributes) }
     end
     
     def self.delete

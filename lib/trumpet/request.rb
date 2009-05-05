@@ -4,8 +4,8 @@ module Trumpet
     @@uri = 'http://api.trumpet.io:3000'
   
     def self.authenticate(username, password)
-      my_realm_authenticator = Resourceful::BasicAuthenticator.new('Trumpet', username, password)    
-      @@http = Resourceful::HttpAccessor.new(:authenticator => my_realm_authenticator)
+      realm_authenticator = Resourceful::BasicAuthenticator.new('Trumpet Service', username, password)    
+      @@http = Resourceful::HttpAccessor.new(:authenticator => realm_authenticator)
     end
   
     def self.get(path, options={})
@@ -48,6 +48,8 @@ module Trumpet
           case response.code
           when 400
             raise Trumpet::BadRequest, error_string
+          when 401
+            raise Trumpet::Unauthorized, error_string
           when 403
             raise Trumpet::Forbidden, error_string
           when 404
