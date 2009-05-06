@@ -1,5 +1,4 @@
 = Trumpet
-
 This is the official gem for interfacing with with the {Trumpet}[http://trumpet.io] api.
 
 = Get It

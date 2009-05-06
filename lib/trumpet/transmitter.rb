@@ -1,7 +1,7 @@
 module Trumpet
   class Transmitter
     @@attributes = [
-      :transmitter_id,
+      :id,
       :source_url,
       :tags,
       :location_string,

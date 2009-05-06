@@ -1,6 +1,7 @@
 module Trumpet
   class Listener
     @@attributes = [
+      :id,
       :receiver_id,
       :owner_id,
       :uri,
@@ -29,8 +30,8 @@ module Trumpet
       listeners.map { |attributes| Listener.new(attributes) }
     end
     
-    def self.delete
-      !!Trumpet::Request.delete("/listeners/#{@id}")
+    def delete
+      !!Trumpet::Request.delete("/listeners/#{@id}", :parse_response => false)
     end
     
     
