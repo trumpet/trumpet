@@ -1,7 +1,21 @@
-= trumpet
+= Trumpet
 
-Description goes here.
+This is the official gem for interfacing with with the {Trumpet}[http://trumpet.io] api.
+
+= Get It
+
+Run the following if you haven't already:
+
+  gem sources -a http://gems.github.com
+
+Then Install the gem:
+
+  sudo gem install trumpet-trumpet
+
+Also, feel free to grab the source:
+
+  git clone git://github.com/trumpet/trumpet.git
 
 == Copyright
 
-Copyright (c) 2009 Michael Taras. See LICENSE for details.
+Copyright (c) 2009 Atmospheric Railsways. See LICENSE for details.
