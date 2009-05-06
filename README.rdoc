@@ -15,7 +15,3 @@ Then Install the gem:
 Also, feel free to grab the source:
 
   git clone git://github.com/trumpet/trumpet.git
-
-== Copyright
-
-Copyright (c) 2009 Atmospheric Railsways. See LICENSE for details.
