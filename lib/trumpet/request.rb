@@ -33,12 +33,8 @@ module Trumpet
       def self.do_request(http_method, path, options)
         raw_request = http_method.new(path)
         raw_request.basic_auth(@@http_auth[:username], @@http_auth[:password]) unless @@http_auth.empty?
+        raw_request.body = options[:parameters].to_params if options[:parameters]
 
-        if http_method == Net::HTTP::Post
-          raw_request.set_form_data(options[:parameters]) if options[:parameters]
-        else
-          raw_request.body = options[:parameters].to_params if options[:parameters]
-        end
 
         response = @@http.request(raw_request)
 
