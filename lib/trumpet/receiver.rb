@@ -1,6 +1,5 @@
 module Trumpet
   class Receiver
-    include TrumpetResource
     
     @@attributes = [
       :id         , :url,

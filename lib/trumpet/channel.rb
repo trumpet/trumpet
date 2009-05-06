@@ -29,7 +29,7 @@ module Trumpet
     end
         
     def broadcast(message)
-     Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h, :parse_response => false)
+      !!Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h, :parse_response => false)
     end
     
     def messages

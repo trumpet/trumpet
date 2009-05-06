@@ -33,7 +33,7 @@ module Trumpet
     # Post a message to the server, but only if it didn't come from the server
     def broadcast
       unless @id
-        Trumpet::Request.post('/messages', :parameters => self.to_h, :parse_response => false)
+        !!Trumpet::Request.post('/messages', :parameters => self.to_h, :parse_response => false)
       end
     end
     

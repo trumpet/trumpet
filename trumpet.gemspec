@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{trumpet}
-  s.version = "0.0.7"
+  s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Taras"]
-  s.date = %q{2009-05-04}
+  s.date = %q{2009-05-05}
   s.email = %q{wtf@trumpet.io}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
     "lib/trumpet/receiver.rb",
     "lib/trumpet/request.rb",
     "lib/trumpet/transmitter.rb",
-    "lib/trumpet/trumpet_resource.rb",
     "lib/trumpet/user.rb",
     "spec/channel_spec.rb",
     "spec/spec_helper.rb"
@@ -48,14 +47,11 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<resourceful>, [">= 0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
     else
-      s.add_dependency(%q<resourceful>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
     end
   else
-    s.add_dependency(%q<resourceful>, [">= 0"])
     s.add_dependency(%q<json>, [">= 0"])
   end
 end

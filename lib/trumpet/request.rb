@@ -1,51 +1,50 @@
 module Trumpet
   module Request
-    @@http = Resourceful::HttpAccessor.new
-    @@uri = 'http://api.trumpet.io:3000'
+    @@http = Net::HTTP.new('api.trumpet.io', 3000)
+    @@http_auth = {}
   
     def self.authenticate(username, password)
-      realm_authenticator = Resourceful::BasicAuthenticator.new('Trumpet Service', username, password)    
-      @@http = Resourceful::HttpAccessor.new(:authenticator => realm_authenticator)
+      @@http_auth[:username] = username
+      @@http_auth[:password] = password
     end
-  
+      
     def self.get(path, options={})
-      do_request(:get, path, options)
+      do_request(Net::HTTP::Get, path, options)
     end
 
     def self.post(path, options={})
-      do_request(:post, path, options)
+      do_request(Net::HTTP::Post, path, options)
     end
 
     def self.put(path, options={})
-      do_request(:put, path, options)
+      do_request(Net::HTTP::Put, path, options)
     end
 
     def self.delete(path, options={})
-      do_request(:delete, path, options) 
+      do_request(Net::HTTP::Delete, path, options) 
     end
     
-    def self.set_server(uri)
-      @@uri = uri
+    def self.set_server(uri, port=nil)
+      @@http = Net::HTTP.new(uri.gsub('http://', ''), port) #no http:// in hosts
     end
 
     private
   
-      def self.do_request(method, path, options)
-        resource = @@http.resource("#{@@uri}#{URI.encode(path)}")
-        begin
-          response =
-            if method == :post
-              resource.send(method, options[:parameters].to_params, :content_type => "application/x-www-form-urlencoded")
-            elsif options[:parameters]
-              resource.send(method, options[:parameters].to_params)
-            else
-              resource.send(method)
-          end
-        rescue Resourceful::UnsuccessfulHttpRequestError => e
-          response = e.http_response
+      def self.do_request(http_method, path, options)
+        raw_request = http_method.new(path)
+        raw_request.basic_auth(@@http_auth[:username], @@http_auth[:password]) unless @@http_auth.empty?
+
+        if http_method == Net::HTTP::Post
+          raw_request.set_form_data(options[:parameters]) if options[:parameters]
+        else
+          raw_request.body = options[:parameters].to_params if options[:parameters]
+        end
+
+        response = @@http.request(raw_request)
+
+        unless response.code.to_i < 400
           error_string = JSON.parse(response.body).to_s
-        
-          case response.code
+          case response.code.to_i
           when 400
             raise Trumpet::BadRequest, error_string
           when 401
@@ -61,10 +60,7 @@ module Trumpet
           when 501
             raise Trumpet::NotImplemented, error_string
           end
-        rescue IOError # Coudln't connect to server
-          raise Trumpet::ServerConnectionError, 'Could not connect to server'
-        end
-      
+        end      
         (options[:parse_response] == false) ? response : JSON.parse(response.body)
       end
   end
