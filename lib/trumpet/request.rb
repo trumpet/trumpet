@@ -7,6 +7,10 @@ module Trumpet
       @@http_auth[:username] = username
       @@http_auth[:password] = password
     end
+    
+    def self.clear_credentials
+      @@http_auth = {}
+    end
       
     def self.get(path, options={})
       do_request(Net::HTTP::Get, path, options)

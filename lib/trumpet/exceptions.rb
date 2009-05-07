@@ -24,6 +24,9 @@ module Trumpet
   # HTTP 405 Error
   class MethodNotAllowed  < StandardError; end
   
+  # HTTP 409 Error
+  class Conflict < StandardError; end
+  
   # HTTP 500 Error
   class InternalServerError  < StandardError; end
   
