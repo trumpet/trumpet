@@ -1,17 +1,7 @@
 module Trumpet
   module Request
-    @@http = Net::HTTP.new('api.trumpet.io', 3000)
-    @@http_auth = {}
-  
-    def self.authenticate(username, password)
-      @@http_auth[:username] = username
-      @@http_auth[:password] = password
-    end
-    
-    def self.clear_credentials
-      @@http_auth = {}
-    end
-      
+    @@http = Net::HTTP.new('api.trumpet.io')
+     
     def self.get(path, options={})
       do_request(Net::HTTP::Get, path, options)
     end
@@ -25,23 +15,33 @@ module Trumpet
     end
 
     def self.delete(path, options={})
-      do_request(Net::HTTP::Delete, path, options) 
+      do_request(Net::HTTP::Delete, path, options)
     end
     
-    def self.set_server(uri, port=nil)
-      @@http = Net::HTTP.new(uri.gsub('http://', ''), port) #no http:// in hosts
+    def self.set_server(host, port=nil)
+      @@http = Net::HTTP.new(host.gsub('http://', ''), port) #no http:// in hosts
     end
 
     private
   
-      def self.do_request(http_method, path, options)
+      def self.do_request(http_method, path, options={})
         raw_request = http_method.new(path)
-        raw_request.basic_auth(@@http_auth[:username], @@http_auth[:password]) unless @@http_auth.empty?
+        raw_request.basic_auth(options[:credentials][:username], options[:credentials][:password]) if options[:credentials]
         raw_request.body = options[:parameters].to_params if options[:parameters]
-
-
+        
         response = @@http.request(raw_request)
-
+        handle_errors(response)
+        
+        if options[:parse_response] == false
+          response 
+        else
+          parsed_response = JSON.parse(response.body)
+          attach_credentials(parsed_response, options[:credentials]) if options[:credentials]
+          parsed_response
+        end
+      end
+      
+      def self.handle_errors(response)
         unless response.code.to_i < 400
           error_string = JSON.parse(response.body).to_s
           case response.code.to_i
@@ -60,8 +60,18 @@ module Trumpet
           when 501
             raise Trumpet::NotImplemented, error_string
           end
-        end      
-        (options[:parse_response] == false) ? response : JSON.parse(response.body)
+        end
       end
+      
+      def self.attach_credentials(parsed_response, credentials)
+        if parsed_response.is_a? Array
+          parsed_response.each do |attributes|
+            attributes[:credentials] = credentials
+          end
+        else
+          parsed_response[:credentials] = credentials
+        end
+      end
+      
   end
 end

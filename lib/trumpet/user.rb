@@ -1,40 +1,38 @@
 module Trumpet
-  class User
-    @@attributes = [:id, :name]
-    attr_reader *@@attributes
+  class User < Trumpet::Resource
     
     def self.create(options)
-      attributes = Trumpet::Request.post('/users', :parameters => options)
+      attributes = Trumpet::Request.post('/users', options)
       User.new(attributes)
     end
     
-    def self.find(name)
-      User.new(Trumpet::Request.get("/users/#{name}"))
+    def self.find(name, options={})
+      User.new(Trumpet::Request.get("/users/#{name}", options))
     end
     
-    def delete
-      !!Trumpet::Request.delete("/users/#{@name}")
+    def delete(options={})
+      options[:credentials] ||= @credentials
+      options[:parse_response] = false
+      !!Trumpet::Request.delete("/users/#{@name}", options)
     end
     
-    def channels
-      Trumpet::Channel.all_by_user(@name)
+    def channels(options={})
+      options[:credentials] ||= @credentials
+      channels = Trumpet::Request.get("/users/#{name}/channels", options)
+      channels.map { |attributes| Channel.new(attributes) }
     end
     
-    def listeners
-      Trumpet::Listener.all_by_user(@name)
+    def listeners(options={})
+      options[:credentials] ||= @credentials
+      listeners = Trumpet::Request.get("/users/#{name}/listeners", options)
+      listeners.map { |attributes| Listener.new(attributes) }
     end
     
-    def receivers
-      Trumpet::Receiver.all_by_user(@name)
+    def receivers(options={})
+      options[:credentials] ||= @credentials
+      receivers = Trumpet::Request.get("/users/#{name}/receivers", options)
+      receivers.map { |attributes| Receiver.new(attributes) }
     end
 
-    
-    protected
-    
-      def initialize(attributes)
-        @@attributes.each do |attr|
-          self.instance_variable_set(:"@#{attr.to_s}", attributes[attr.to_s]) if attributes[attr.to_s]
-        end
-      end
   end
 end

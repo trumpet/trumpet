@@ -1,49 +1,33 @@
 module Trumpet
-  class Channel
-    @@attributes = [
-      :name,
-      :description,
-      :receiver_id,
-      :transmitter_id,
-      :owner_id,
-      :created_at,
-      :updated_at
-    ]
-    
-    attr_reader *@@attributes
+  class Channel < Trumpet::Resource
     
     def self.create(options)
-      Channel.new(Trumpet::Request.post('/channels', :parameters => options))
+      Channel.new(Trumpet::Request.post('/channels', options))
     end
     
-    def self.find(name)
-      Channel.new(Trumpet::Request.get("/channels/#{name}"))
+    def self.find(name, options={})
+      Channel.new(Trumpet::Request.get("/channels/#{name}", options))
     end
     
-    def self.all
-      Trumpet::Request.get('/channels').map { |attributes| Channel.new(attributes) }
+    def self.all(options={})
+      Trumpet::Request.get('/channels', options).map { |attributes| Channel.new(attributes) }
     end
     
-    def self.all_by_user(name)
-      channels = Trumpet::Request.get("/users/#{name}/channels")
+    def self.all_by_user(name, options={})
+      channels = Trumpet::Request.get("/users/#{name}/channels", options)
       channels.map { |attributes| Channel.new(attributes) }
     end
         
-    def broadcast(message)
-      !!Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h, :parse_response => false)
+    def broadcast(message, options={})
+      options[:credentials] ||= @credentials
+      !!Trumpet::Request.post("/channels/#{@name}/messages", :parameters => message.to_h, :parse_response => false, :credentials => options[:credentials])
     end
     
-    def messages
-      messages = Trumpet::Request.get("/channels/#{@name}/messages")
+    def messages(options={})
+      options[:credentials] ||= @credentials
+      messages = Trumpet::Request.get("/channels/#{@name}/messages", options)
       messages.map { |attributes| Message.new(attributes) }
     end
-
-    protected
     
-      def initialize(attributes)
-        @@attributes.each do |attr|
-          self.instance_variable_set(:"@#{attr.to_s}", attributes[attr.to_s]) if attributes[attr.to_s]
-        end
-      end
   end
 end
