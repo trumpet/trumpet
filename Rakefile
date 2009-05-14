@@ -10,6 +10,7 @@ begin
     gem.homepage = "http://github.com/trumpet/trumpet"
     gem.authors = ["Michael Taras"]
     gem.add_dependency 'json'
+    gem.add_dependency 'fakeweb'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
