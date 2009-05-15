@@ -19,5 +19,36 @@ module Trumpet
       !!Trumpet::Request.delete("/listeners/#{@id}", options)
     end
     
+    def receiver(options={})
+      @receiver ||= begin
+        options[:credentials] ||= @credentials
+        Trumpet::Receiver.new(Trumpet::Request.get("/receivers/#{receiver_id}", options))
+      end
+    end
+    
+    def delivery_method
+      case URI.parse(uri).scheme
+			when 'mailto' then 'Email'
+			when 'tel' then 'SMS'
+			when 'twitter' then 'Twitter'
+		  when 'irc' then 'IRC'
+			when 'im' then 'IM'
+			end
+    end
+    
+    def delivery_address
+      case URI.parse(uri).scheme
+			when 'mailto' then URI.parse(uri).to
+			when 'tel' then URI.parse(uri).opaque
+			when 'twitter' then URI.parse(uri).opaque
+		  when 'irc'
+		    url = URI.parse(uri)
+        "#{url.host}##{url.fragment}"
+			when 'im'
+			  url = URI.parse(uri)
+        "#{url.user}@#{url.host}"
+			end
+    end
+    
   end
 end
