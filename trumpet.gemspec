@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{trumpet}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Taras"]
-  s.date = %q{2009-05-14}
+  s.date = %q{2009-05-15}
   s.email = %q{wtf@trumpet.io}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -38,6 +38,10 @@ Gem::Specification.new do |s|
     "spec/fixtures/channels/show",
     "spec/fixtures/listeners/create",
     "spec/fixtures/listeners/find",
+    "spec/fixtures/listeners/im",
+    "spec/fixtures/listeners/irc",
+    "spec/fixtures/listeners/sms",
+    "spec/fixtures/listeners/twitter",
     "spec/fixtures/receivers/create",
     "spec/fixtures/receivers/find",
     "spec/fixtures/receivers/messages",
