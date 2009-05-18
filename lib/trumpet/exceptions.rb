@@ -2,34 +2,34 @@
 
 module Trumpet
   
-  # Exception raised when the connection to the server fails
-  class ServerConnectionError < StandardError; end
-  
   # A generic exception to use until we have more specific exceptions
   # for everything
   class TrumpetError < StandardError; end
   
+  # Exception raised when the connection to the server fails
+  class ServerConnectionError < TrumpetError; end
+  
   # HTTP 400 Error
-  class BadRequest < StandardError; end
+  class BadRequest < TrumpetError; end
   
   # HTTP 401 Error
-  class Unauthorized < StandardError; end
+  class Unauthorized < TrumpetError; end
   
   # HTTP 403 Error
-  class Forbidden < StandardError; end
+  class Forbidden < TrumpetError; end
   
   # HTTP 404 Error
-  class NotFound  < StandardError; end
+  class NotFound  < TrumpetError; end
   
   # HTTP 405 Error
-  class MethodNotAllowed  < StandardError; end
+  class MethodNotAllowed  < TrumpetError; end
   
   # HTTP 409 Error
-  class Conflict < StandardError; end
+  class Conflict < TrumpetError; end
   
   # HTTP 500 Error
-  class InternalServerError  < StandardError; end
+  class InternalServerError  < TrumpetError; end
   
   # HTTP 501 Error
-  class NotImplemented  < StandardError; end
+  class NotImplemented  < TrumpetError; end
 end

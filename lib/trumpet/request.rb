@@ -55,6 +55,8 @@ module Trumpet
             raise Trumpet::NotFound, error_string
           when 405
             raise Trumpet::MethodNotAllowed, error_string
+          when 409
+            raise Trumpet::Conflict, error_string
           when 500
             raise Trumpet::InternalServerError, error_string
           when 501

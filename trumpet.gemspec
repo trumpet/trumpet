@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{trumpet}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Taras"]
@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
     "spec/listener_spec.rb",
     "spec/message_spec.rb",
     "spec/receiver_spec.rb",
-    "spec/resource_spec.rb",
+    "spec/request_spec.rb",
     "spec/spec_helper.rb",
     "spec/transmitter_spec.rb",
     "spec/user_spec.rb"
@@ -71,7 +71,7 @@ Gem::Specification.new do |s|
     "spec/listener_spec.rb",
     "spec/message_spec.rb",
     "spec/receiver_spec.rb",
-    "spec/resource_spec.rb",
+    "spec/request_spec.rb",
     "spec/spec_helper.rb",
     "spec/transmitter_spec.rb",
     "spec/user_spec.rb"
