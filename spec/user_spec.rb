@@ -7,6 +7,7 @@ describe "User" do
     
     FakeWeb.register_uri :post,   "#{AUTHENTICATED_URI}/users",                   :file => "#{File.dirname(__FILE__)}/fixtures/users/create"
     FakeWeb.register_uri :get,    "#{AUTHENTICATED_URI}/users/raddude",           :file => "#{File.dirname(__FILE__)}/fixtures/users/show"
+    FakeWeb.register_uri :put,    "#{AUTHENTICATED_URI}/users/raddude",           :file => "#{File.dirname(__FILE__)}/fixtures/users/put"
     FakeWeb.register_uri :delete, "#{AUTHENTICATED_URI}/users/raddude",           :string => ["204", "OK"]
     FakeWeb.register_uri :get,    "#{AUTHENTICATED_URI}/users/raddude/channels",  :file => "#{File.dirname(__FILE__)}/fixtures/users/channels"
     FakeWeb.register_uri :get,    "#{AUTHENTICATED_URI}/users/raddude/listeners", :file => "#{File.dirname(__FILE__)}/fixtures/users/listeners"
@@ -22,6 +23,14 @@ describe "User" do
     user = @trumpet.users.find 'raddude'
     user.name.should == 'raddude'
   end
+
+  # TODO: Note yet supported on backend
+  # it "should let me update an existing user" do
+  #   user = @trumpet.users.find 'raddude'
+  #   
+  #   user.update(:name => 'radicaldude')
+  #   user.name.should == 'radicaldude'
+  # end
   
   it "should let me delete an existing user" do
     user = @trumpet.users.find 'raddude'

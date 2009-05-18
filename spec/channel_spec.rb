@@ -5,11 +5,12 @@ describe "Channel" do
   before(:all) do
     @trumpet = Trumpet::Base.new :username => 'somedude', :password => 'somepassword'
     
-    FakeWeb.register_uri :post, "somedude:somepassword@api.trumpet.io/channels", :file => "#{File.dirname(__FILE__)}/fixtures/channels/create"
-    FakeWeb.register_uri :get, "somedude:somepassword@api.trumpet.io/channels", :file => "#{File.dirname(__FILE__)}/fixtures/channels/all"
-    FakeWeb.register_uri :get, "somedude:somepassword@api.trumpet.io/channels/radical", :file => "#{File.dirname(__FILE__)}/fixtures/channels/show"
-    FakeWeb.register_uri :post, "somedude:somepassword@api.trumpet.io/channels/radical/messages", :status => ["204", "OK"]
-    FakeWeb.register_uri :get, "somedude:somepassword@api.trumpet.io/channels/radical/messages", :file => "#{File.dirname(__FILE__)}/fixtures/channels/messages"
+    FakeWeb.register_uri :post,   "#{AUTHENTICATED_URI}/channels",                  :file => "#{File.dirname(__FILE__)}/fixtures/channels/create"
+    FakeWeb.register_uri :get,    "#{AUTHENTICATED_URI}/channels",                  :file => "#{File.dirname(__FILE__)}/fixtures/channels/all"
+    FakeWeb.register_uri :get,    "#{AUTHENTICATED_URI}/channels/radical",          :file => "#{File.dirname(__FILE__)}/fixtures/channels/show"
+    FakeWeb.register_uri :delete, "#{AUTHENTICATED_URI}/channels/radical",          :status => ["204", "OK"]
+    FakeWeb.register_uri :post,   "#{AUTHENTICATED_URI}/channels/radical/messages", :status => ["204", "OK"]
+    FakeWeb.register_uri :get,    "#{AUTHENTICATED_URI}/channels/radical/messages", :file => "#{File.dirname(__FILE__)}/fixtures/channels/messages"
   end
   
   it 'should let me create a channel' do
@@ -27,6 +28,11 @@ describe "Channel" do
   it 'should find a channel by name' do
     channel = @trumpet.channels.find 'radical'
     channel.name.should == 'radical'
+  end
+  
+  it "should let me delete an existing channel" do
+    channel = @trumpet.channels.find 'radical'
+    channel.delete.should == true
   end
   
   it 'should allow me to broadcast a message through a channel' do

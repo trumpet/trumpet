@@ -9,6 +9,16 @@ module Trumpet
     def self.find(name, options={})
       User.new(Trumpet::Request.get("/users/#{name}", options))
     end
+
+    # TODO: Not yet supported in backend
+    # def update(parameters)
+    #   options = {}
+    #   
+    #   options[:credentials] ||= @credentials
+    #   options[:parameters] = self.to_h.merge(parameters)
+    #   
+    #   !!set_attributes(Trumpet::Request.put("/users/#{name}", options))
+    # end
     
     def delete(options={})
       options[:credentials] ||= @credentials

@@ -17,6 +17,11 @@ module Trumpet
       channels = Trumpet::Request.get("/users/#{name}/channels", options)
       channels.map { |attributes| Channel.new(attributes) }
     end
+    
+    def delete(options={})
+      options[:credentials] ||= @credentials
+      !!Trumpet::Request.delete("/channels/#{name}", :parse_response => false, :credentials => options[:credentials])
+    end
         
     def broadcast(message, options={})
       options[:credentials] ||= @credentials
