@@ -1,5 +1,6 @@
 module Trumpet
   class Resource
+    alias :old_inspect :inspect
     
     def to_h(excludes=[])
       excludes << '@credentials'
@@ -7,6 +8,10 @@ module Trumpet
         hash[value.gsub('@', '').to_sym] = instance_variable_get(value) unless excludes.include?(value)
         hash
       end
+    end
+    
+    def inspect
+      old_inspect.gsub(/ @credentials=.*\},/, '')
     end
     
     protected

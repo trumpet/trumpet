@@ -29,4 +29,9 @@ describe "Resource" do
     channel.to_h.should == @channel_attributes
   end
   
+  it "should exclude credentials from inspect" do
+    channel = @trumpet.channels.find 'radical'
+    channel.inspect.should_not include('@credentials')
+  end
+  
 end
