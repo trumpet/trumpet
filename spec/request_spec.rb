@@ -3,6 +3,9 @@ require File.dirname(__FILE__) + '/spec_helper.rb'
 describe "Request" do
   
   before(:all) do
+    FakeWeb.register_uri :get,  "#{UNAUTHENTICATED_URI}/fakerequest", :string => ['Unauthorized Fake Request'].to_json
+    FakeWeb.register_uri :get,  "#{AUTHENTICATED_URI}/fakerequest", :string => ['Authorized Fake Request'].to_json
+    
     FakeWeb.register_uri :get,  "#{UNAUTHENTICATED_URI}/badrequest",    :status => ["400", "Bad Request"],  :string => ['Bad Request'].to_json
     FakeWeb.register_uri :get,  "#{UNAUTHENTICATED_URI}/unauthorized",  :status => ["401", "Unauthorized"], :string => ['Unauthorized'].to_json
     FakeWeb.register_uri :get,  "#{UNAUTHENTICATED_URI}/forbidden",  :status => ["403", "Forbidden"], :string => ['Forbidden'].to_json
@@ -11,6 +14,16 @@ describe "Request" do
     FakeWeb.register_uri :get,  "#{UNAUTHENTICATED_URI}/conflict",  :status => ["409", "Conflict"], :string => ['Conflict'].to_json
     FakeWeb.register_uri :get,  "#{UNAUTHENTICATED_URI}/internalservererror",  :status => ["500", "Internal Server Error"], :string => ['Internal Server Error'].to_json
     FakeWeb.register_uri :get,  "#{UNAUTHENTICATED_URI}/notimplemented",  :status => ["501", "Not Implemented"], :string => ['Not Implemented'].to_json
+  end
+  
+  it "should not parse the response if asked not to" do
+    response = Trumpet::Request.get('/fakerequest', :parse_response => false)
+    response.body.should == "[\"Unauthorized Fake Request\"]"
+  end
+  
+  it "should attach http_auth credentials to request is given" do
+    response = Trumpet::Request.get('/fakerequest', :credentials => {:username => 'somedude', :password => 'somepassword'}, :parse_response => false)
+    response.body.should == "[\"Authorized Fake Request\"]"
   end
   
   context "when handling errors" do
