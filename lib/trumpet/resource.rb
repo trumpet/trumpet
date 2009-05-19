@@ -4,7 +4,7 @@ module Trumpet
     def to_h(excludes=[])
       excludes << '@credentials'
       instance_variables.inject({}) do |hash, value|
-        hash[value.gsub('@', '')] = instance_variable_get(value) unless excludes.include?(value)
+        hash[value.gsub('@', '').to_sym] = instance_variable_get(value) unless excludes.include?(value)
         hash
       end
     end

@@ -21,6 +21,10 @@ describe "Request" do
     response.body.should == "[\"Unauthorized Fake Request\"]"
   end
   
+  it "should parse the response if no options are passed in" do
+    Trumpet::Request.get('/fakerequest').should.to_s == 'Unauthorized Fake Request'
+  end
+  
   it "should attach http_auth credentials to request is given" do
     response = Trumpet::Request.get('/fakerequest', :credentials => {:username => 'somedude', :password => 'somepassword'}, :parse_response => false)
     response.body.should == "[\"Authorized Fake Request\"]"
