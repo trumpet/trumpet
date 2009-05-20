@@ -11,11 +11,9 @@ module Trumpet
       :radius     , :channel,
       :public     , :authorized_receiver_owners,
       :content    , :id,
-      :created_at , :updated_at
+      :source
     ]
     
-    #TODO: created_at and updated_at maybe not writable
- 
     attr_accessor *@@attributes
 
     def initialize(options)

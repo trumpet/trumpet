@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{trumpet}
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Taras"]
-  s.date = %q{2009-05-18}
+  s.date = %q{2009-05-19}
   s.email = %q{wtf@trumpet.io}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
     "spec/message_spec.rb",
     "spec/receiver_spec.rb",
     "spec/request_spec.rb",
+    "spec/resource_spec.rb",
     "spec/spec_helper.rb",
     "spec/transmitter_spec.rb",
     "spec/user_spec.rb"
@@ -72,6 +73,7 @@ Gem::Specification.new do |s|
     "spec/message_spec.rb",
     "spec/receiver_spec.rb",
     "spec/request_spec.rb",
+    "spec/resource_spec.rb",
     "spec/spec_helper.rb",
     "spec/transmitter_spec.rb",
     "spec/user_spec.rb"

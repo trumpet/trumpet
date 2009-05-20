@@ -50,8 +50,4 @@ describe "Listener" do
     twitter_listener.delivery_method.should == 'Twitter'
     twitter_listener.delivery_address.should == 'twitterdude'
   end
-  
-  it "should be able to describe it's delivery address" do
-    
-  end
 end
